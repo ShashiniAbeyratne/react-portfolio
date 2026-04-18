@@ -31,7 +31,7 @@ export function InitLoader({onComplete}: {onComplete: () => void}) {
             <div className="w-full max-w-95 p-8">
                 {/* Version label */}
                 <p className="font-mono init-version-label mb-9">
-                    SHASHINI.PORTFOLIO · v2025
+                    SHASHINI.PORTFOLIO · v{new Date().getFullYear()}
                 </p>
 
                 {/* Log lines */}
@@ -65,13 +65,14 @@ const ProgressBar = React.memo(function ProgressBar({progress}: {progress: numbe
   return (
     <Field className="w-full">
       <Progress
-        id="init-progress"
-        value={progress}
-        className="progress-amber"
-        aria-label={`Loading ${progress}%`}
+          role="progressbar"
+          id="init-progress"
+          value={progress}
+          className="progress-amber"
+          aria-label={`Loading ${progress}%`}
       />
       <FieldLabel htmlFor="init-progress" className="font-mono init-progress-label">
-        {progress}%
+          {progress}%
       </FieldLabel>
     </Field>
   )

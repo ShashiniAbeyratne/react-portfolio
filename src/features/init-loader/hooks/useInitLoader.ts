@@ -49,6 +49,7 @@ export function useInitLoader(onComplete: () => void) {
 
     const handleSkip = () => {
         skippedRef.current = true
+        setProgress(100)
         sessionStorage.setItem("portfolio_init_seen", "1")
         onComplete()
     }
