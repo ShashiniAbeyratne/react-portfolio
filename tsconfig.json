@@ -17,8 +17,13 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "vite/client", 
+      "vitest/globals", 
+      "@testing-library/jest-dom"
+    ]
   },
-  "include": ["src"],
+  "include": ["src", "tests", "__mocks__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

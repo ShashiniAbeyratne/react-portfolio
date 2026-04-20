@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { InitLoader } from '../../../../src/features/init-loader'
+import { useReducedMotion } from 'framer-motion'
+
+vi.mock('framer-motion')
 
 describe('InitLoader', () => {
     let onComplete: ReturnType<typeof vi.fn>
@@ -20,7 +23,7 @@ describe('InitLoader', () => {
     const onCompleteExpectation = () => {
         renderedLinesExpectation()
         expect(onComplete).toHaveBeenCalledOnce()
-        expect(sessionStorage.getItem('initLoaderCompleted')).toBe('1')
+        expect(sessionStorage.getItem('portfolio_init_seen')).toBe('1')
     }
 
     beforeEach(() => {
@@ -43,24 +46,12 @@ describe('InitLoader', () => {
         renderedLinesExpectation()
     })
 
-    it('should show all log lines and progress bar should reach 100% on complete', () => {
-        // Override matchMedia to simulate reduced motion preference
-        window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-            matches: query === '(prefers-reduced-motion: reduce)',
-            media: query,
-            onchange: null,
-            addListener: () => {},
-            removeListener: () => {},
-            addEventListener: () => {},
-            removeEventListener: () => {},
-            dispatchEvent: () => false,
-        }))
-
+    it('should show all log lines and progress bar should reach 100% on complete', async () => {
+        vi.mocked(useReducedMotion).mockReturnValueOnce(true)
         vi.useFakeTimers()
         render(<InitLoader onComplete={onComplete} />)
-        act(() => vi.advanceTimersByTime(300))
+        await act(async () => { vi.advanceTimersByTime(300) })
         onCompleteExpectation()
-        vi.useRealTimers()
     })
 
     keyEventTestCases.forEach(({ key, code, label }) => {

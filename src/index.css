@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/syne";
+@import "@fontsource-variable/dm-sans";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,7 +52,7 @@
     background-size: 44px 44px;
   }
 
-  .init-loader-bg {
+  .screen-layout-bg {
     background-color: var(--portfolio-bg);
   }
 
@@ -95,11 +97,77 @@
   .progress-amber > [data-slot='progress-indicator'] {
     background-color: var(--portfolio-amber);
   }
+
+  .hero-location {
+    display: block;
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--portfolio-amber);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: 'Syne Variable', sans-serif;
+    font-size: clamp(3.2rem, 9vw, 5.5rem);
+    font-weight: 800;
+    color: var(--portfolio-text);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-tagline {
+    font-family: 'Syne Variable', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--portfolio-amber);
+    letter-spacing: 0.01em;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-bio {
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.85;
+    color: var(--portfolio-subtle);
+    max-width: 360px;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-outline-amber {
+    background: transparent;
+    border: 1.5px solid var(--portfolio-amber);
+    color: var(--portfolio-amber);
+    font-family: 'Syne Variable', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.72rem 1.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.22s ease;
+  }
+
+  .btn-outline-amber:hover {
+    background: rgba(245, 166, 35, 0.1);
+  }
+
+  .hero-cta-hint {
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 0.78rem;
+    color: var(--portfolio-muted);
+    letter-spacing: 0.05em;
+  }
 }
 
 @layer base {
   .theme {
-    --font-heading: var(--font-mono);
+    --font-heading: 'Syne Variable', sans-serif;
+    --font-sans: 'DM Sans Variable', sans-serif;
     --font-mono: 'JetBrains Mono Variable', monospace;
   }
 
@@ -111,6 +179,8 @@
     --portfolio-line: #4E4C6A;
     --portfolio-check: #3DB876;
     --portfolio-track: #131320;
+    --portfolio-text: #EEEAF4;
+    --portfolio-subtle: #5A587A;
 
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);

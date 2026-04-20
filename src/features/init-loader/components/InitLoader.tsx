@@ -17,18 +17,18 @@ export function InitLoader({onComplete}: {onComplete: () => void}) {
 
   return (
     <motion.div
-          className="bg-grid-amber init-loader-bg h-screen w-screen flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={motionTransition}
-          ref={scope}
-          onClick={handleSkip}
-          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleSkip() }}
-          tabIndex={0}
-          role="status"
-          aria-label="Loading portfolio">
-            <div className="w-full max-w-95 p-8">
+          className="bg-grid-amber"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={motionTransition}
+            ref={scope}
+            onClick={handleSkip}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleSkip() }}
+            tabIndex={0}
+            role="status"
+            aria-label="Loading portfolio">
+              <div className="w-full max-w-95 p-8">
                 {/* Version label */}
                 <p className="font-mono init-version-label mb-9">
                     SHASHINI.PORTFOLIO · v{new Date().getFullYear()}

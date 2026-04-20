@@ -10,16 +10,17 @@ export function useInitLoader(onComplete: () => void) {
     useEffect(() => {
         const runAnimations = async () => {
             if (isReducedMotionEnabled) {
-              setTimeout(() => {
+              const id = setTimeout(() => {
                     if (skippedRef.current) return
                     animate("#line-0", { opacity: 1 }, { duration: 0 })
                     animate("#line-1", { opacity: 1 }, { duration: 0 })
                     animate("#line-2", { opacity: 1 }, { duration: 0 })
                     animate("#line-3", { opacity: 1 }, { duration: 0 })
                     setProgress(100)
-                    setSessionStorageFlag()                    
+                    setSessionStorageFlag("1")
                     onComplete()
                 }, 300)
+                return () => clearTimeout(id) 
             } 
             else {
                 setProgress(30)
@@ -38,7 +39,7 @@ export function useInitLoader(onComplete: () => void) {
                 await animate("#line-3", { opacity: 1 }, { duration: 0.5 })
                 if (skippedRef.current) return
                 
-                setSessionStorageFlag()                    
+                setSessionStorageFlag("1")
                 onComplete()
             }
         }
@@ -50,7 +51,7 @@ export function useInitLoader(onComplete: () => void) {
     const handleSkip = () => {
         skippedRef.current = true
         setProgress(100)
-        sessionStorage.setItem("portfolio_init_seen", "1")
+        setSessionStorageFlag("1")
         onComplete()
     }
 
@@ -61,6 +62,6 @@ export function useInitLoader(onComplete: () => void) {
     return { scope, progress, handleSkip, motionTransition }
 }
 
-const setSessionStorageFlag = () => {
-    sessionStorage.setItem("portfolio_init_seen", "1")
+const setSessionStorageFlag = (value: string) => {
+    sessionStorage.setItem("portfolio_init_seen", value)
 }

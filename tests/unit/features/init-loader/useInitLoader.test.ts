@@ -1,21 +1,25 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
 import { useInitLoader } from '../../../../src/features/init-loader/hooks/useInitLoader'
+import { useReducedMotion, useAnimate } from 'framer-motion'
+
+vi.mock('framer-motion')
 
 describe('useInitLoader', () => {
     let onComplete: ReturnType<typeof vi.fn>
     let result : { current: ReturnType<typeof useInitLoader> }
-
-    const onCompleteExpectation = () => {
-        expect(result.current.progress).toBe(100)
-        expect(onComplete).toHaveBeenCalledOnce()
-        expect(sessionStorage.getItem('portfolio_init_seen')).toBe('1')
-    }
+    const progress = [30, 58, 84, 100]
 
     const onIncrementExpectation = (progress: number) => {
         expect(result.current.progress).toBe(progress)
         expect(onComplete).not.toHaveBeenCalled()
         expect(sessionStorage.getItem('portfolio_init_seen')).not.toBe('1')
+    }
+
+    const onCompleteExpectation = () => {
+        expect(result.current.progress).toBe(100)
+        expect(onComplete).toHaveBeenCalledOnce()
+        expect(sessionStorage.getItem('portfolio_init_seen')).toBe('1')
     }
 
     beforeEach(() => {
@@ -27,9 +31,9 @@ describe('useInitLoader', () => {
         vi.useRealTimers()
     })
 
-    it('progress should be 0 initially', () => {
+    it('progress should be 30 initially', () => {
         result = renderHook(() => useInitLoader(onComplete)).result
-        expect(result.current.progress).toBe(0)
+        expect(result.current.progress).toBe(30)
         expect(onComplete).not.toHaveBeenCalled()
         expect(sessionStorage.getItem('portfolio_init_seen')).not.toBe('1')
     })
@@ -40,43 +44,34 @@ describe('useInitLoader', () => {
         onCompleteExpectation()
     })
 
-    it('should show all log lines and progress bar should reach 100% on complete', () => {
-        // Override matchMedia to simulate reduced motion preference
-        window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-            matches: query === '(prefers-reduced-motion: reduce)',
-            media: query,
-            onchange: null,
-            addListener: () => {},
-            removeListener: () => {},
-            addEventListener: () => {},
-            removeEventListener: () => {},
-            dispatchEvent: () => false,
-        }))
-
+    it('should reach 100% and call onComplete when reduced motion is active', async () => {
+        vi.mocked(useReducedMotion).mockReturnValueOnce(true)
         vi.useFakeTimers()
         result = renderHook(() => useInitLoader(onComplete)).result
-        act(() => vi.advanceTimersByTime(300))
+        await act(async () => { vi.advanceTimersByTime(300) })
         onCompleteExpectation()
     })
 
-    it('should show log lines and progress bar should reach 100% incrementally', () => {
-        vi.useFakeTimers()
+    it('should advance progress incrementally through the animation sequence', async () => {
+        // Each animate() call gets a promise you control manually
+        const resolvers: Array<() => void> = []
+        const controlledAnimate = vi.fn().mockImplementation(
+            () => new Promise<void>(resolve => resolvers.push(resolve))
+        )
+
+        vi.mocked(useAnimate).mockReturnValueOnce([
+            { current: document.createElement('div') },
+            controlledAnimate
+        ] as any)
+        
         result = renderHook(() => useInitLoader(onComplete)).result
-        onIncrementExpectation(30)
+        onIncrementExpectation(progress[0])
 
-        act(() => vi.advanceTimersByTime(500))
-        onIncrementExpectation(58)
-        expect(onComplete).not.toHaveBeenCalled()
+        for (let i = 0; i < 4; i++) {
+            await act(async () => {resolvers[i](); await Promise.resolve()})
+            if (i < 3) onIncrementExpectation(progress[i+1])
+        }
 
-        act(() => vi.advanceTimersByTime(500))
-        onIncrementExpectation(84)
-        expect(onComplete).not.toHaveBeenCalled()
-
-        act(() => vi.advanceTimersByTime(500))
-        onIncrementExpectation(100)
-        expect(onComplete).not.toHaveBeenCalled()
-
-        act(() => vi.advanceTimersByTime(500))
         onCompleteExpectation()
     })
 })
