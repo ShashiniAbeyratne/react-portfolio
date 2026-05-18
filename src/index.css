@@ -162,6 +162,261 @@
     color: var(--portfolio-muted);
     letter-spacing: 0.05em;
   }
+
+  /* ── Chat ── */
+  .chat-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: var(--portfolio-bg);
+  }
+
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.4rem;
+    border-bottom: 1px solid var(--portfolio-surface);
+    flex-shrink: 0;
+  }
+
+  .chat-header-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--portfolio-amber);
+    box-shadow: 0 0 8px rgba(245, 166, 35, 0.5);
+  }
+
+  .chat-header-logo {
+    font-family: 'Syne Variable', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--portfolio-text);
+    letter-spacing: -0.01em;
+  }
+
+  .chat-header-label {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.68rem;
+    color: var(--portfolio-muted);
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+
+  .chat-news-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(245, 166, 35, 0.05);
+    border: 1px solid rgba(245, 166, 35, 0.12);
+    border-radius: 20px;
+    padding: 0.3rem 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .chat-news-toggle:hover {
+    background: rgba(245, 166, 35, 0.1);
+  }
+
+  .chat-news-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--portfolio-amber);
+    animation: pulse 1.5s ease infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { opacity: 1; }
+    to   { opacity: 0.3; }
+  }
+
+  .chat-news-toggle-label {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.62rem;
+    color: var(--portfolio-chip-text);
+    letter-spacing: 0.06em;
+  }
+
+  .chat-news-chevron {
+    font-size: 0.58rem;
+    color: var(--portfolio-subtle);
+    transition: transform 0.22s ease;
+  }
+
+  .chat-news-panel {
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: var(--portfolio-news-bg);
+    flex-shrink: 0;
+  }
+
+  .chat-news-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.85rem 1.4rem;
+    border-bottom: 1px solid var(--portfolio-surface);
+  }
+
+  .chat-news-tag {
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.18);
+    border-radius: 5px;
+    padding: 0.4rem 0.6rem;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.58rem;
+    color: var(--portfolio-amber);
+    letter-spacing: 0.08em;
+  }
+
+  .chat-news-headline {
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--portfolio-ai-text);
+    margin-bottom: 0.25rem;
+    line-height: 1.5;
+  }
+
+  .chat-news-meta {
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 0.7rem;
+    color: var(--portfolio-muted);
+  }
+
+  .chat-news-credit {
+    color: var(--portfolio-subtle);
+  }
+
+  .chat-message-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--portfolio-surface) transparent;
+  }
+
+  .msg-bubble-ai {
+    background: rgba(19, 19, 32, 0.5);
+    border: 1px solid var(--portfolio-border);
+    color: var(--portfolio-ai-text);
+    border-radius: 4px 12px 12px 12px;
+    align-self: flex-start;
+    max-width: 86%;
+    padding: 11px 15px;
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  .msg-bubble-user {
+    background: rgba(245, 166, 35, 0.09);
+    border: 1px solid rgba(245, 166, 35, 0.18);
+    color: var(--portfolio-text);
+    border-radius: 12px 12px 4px 12px;
+    align-self: flex-end;
+    max-width: 86%;
+    padding: 11px 15px;
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  .chat-chips-row {
+    padding: 0.5rem 1.4rem 0.6rem;
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .chat-chip {
+    border: 1px solid #252438;
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--portfolio-chip-text);
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chat-chip:hover {
+    border-color: var(--portfolio-amber);
+    color: var(--portfolio-amber);
+    background: rgba(245, 166, 35, 0.07);
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.65rem 1.4rem 0.85rem;
+    border-top: 1px solid var(--portfolio-surface);
+    flex-shrink: 0;
+  }
+
+  .chat-input {
+    background: #0F0F1C;
+    border: 1px solid var(--portfolio-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Sans Variable', sans-serif;
+    font-size: 13px;
+    color: var(--portfolio-text);
+    outline: none;
+    transition: border-color 0.2s ease;
+    flex: 1;
+  }
+
+  .chat-input:focus {
+    border-color: rgba(245, 166, 35, 0.4);
+  }
+
+  .chat-input::placeholder {
+    color: var(--portfolio-chip-text);
+  }
+
+  .chat-send-btn {
+    background: var(--portfolio-amber);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    color: var(--portfolio-bg);
+    cursor: pointer;
+    font-family: 'Syne Variable', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+  }
+
+  .chat-send-btn:hover:not(:disabled) {
+    background: #FFB840;
+    transform: scale(1.03);
+  }
+
+  .chat-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 @layer base {
@@ -181,6 +436,11 @@
     --portfolio-track: #131320;
     --portfolio-text: #EEEAF4;
     --portfolio-subtle: #5A587A;
+    --portfolio-surface: #131320;
+    --portfolio-border: #1E1D30;
+    --portfolio-ai-text: #C0BDD4;
+    --portfolio-chip-text: #8886A4;
+    --portfolio-news-bg: #0D0D1A;
 
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);

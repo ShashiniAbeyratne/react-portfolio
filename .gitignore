@@ -32,3 +32,7 @@ npm-debug.log*
 .claude/
 .sdd/
 templates/
+
+# Local settings for Azure Functions, not committed
+api/local.settings.json
+
