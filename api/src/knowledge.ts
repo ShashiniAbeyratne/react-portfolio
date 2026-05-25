@@ -57,6 +57,9 @@ context but should not lead the answer.
 
 --- CURRENT ROLE ---
 Senior Software Engineer at 6clicks (July 2022 – Present, Melbourne)
+Alongside her engineering work, Shashini is currently taking on product engineering
+responsibilities at 6clicks — contributing to feature definition and shaping product
+decisions from both a technical and user perspective, not just implementation.
 6clicks is a Gartner-recognised GRC (Governance, Risk & Compliance) SaaS platform —
 one of the world's most effective risk and compliance software products, including an
 award-winning mobile app. Shashini has been at 6clicks for 6 years total across two levels.
