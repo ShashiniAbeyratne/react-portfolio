@@ -41,27 +41,33 @@ async function fetchFeed(feed: typeof FEEDS[number]): Promise<NewsItem[]> {
     }))
 }
 
-export async function news(_req: HttpRequest, _ctx: InvocationContext): Promise<HttpResponseInit> {
-    if (cache && Date.now() < cache.expiresAt) {
+export async function news(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    try {
+        if (cache && Date.now() < cache.expiresAt) {
+            return {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: cache.items }),
+            }
+        }
+
+        const results = await Promise.allSettled(FEEDS.map(fetchFeed))
+        const items = results
+            .filter((r): r is PromiseFulfilledResult<NewsItem[]> => r.status === 'fulfilled')
+            .flatMap(r => r.value)
+            .slice(0, MAX_ITEMS)
+
+        cache = { items, expiresAt: Date.now() + CACHE_TTL }
+
         return {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: cache.items }),
+            body: JSON.stringify({ items }),
         }
-    }
-
-    const results = await Promise.allSettled(FEEDS.map(fetchFeed))
-    const items = results
-        .filter((r): r is PromiseFulfilledResult<NewsItem[]> => r.status === 'fulfilled')
-        .flatMap(r => r.value)
-        .slice(0, MAX_ITEMS)
-
-    cache = { items, expiresAt: Date.now() + CACHE_TTL }
-
-    return {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items }),
+    } catch (err) {
+        context.error('news function error:', err)
+        const message = err instanceof Error ? err.message : String(err)
+        return { status: 500, body: JSON.stringify({ error: message }) }
     }
 }
 

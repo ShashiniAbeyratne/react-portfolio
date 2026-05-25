@@ -23,21 +23,27 @@ Rules:
 - answerIndex must be the index (0-3) of the correct option in the options array
 - Do not include explanations, only the JSON`
 
-export async function riddles(_req: HttpRequest, _ctx: InvocationContext): Promise<HttpResponseInit> {
-    const completion = await groq.chat.completions.create({
-        model: 'llama-3.1-8b-instant',
-        messages: [{ role: 'user', content: PROMPT }],
-        response_format: { type: 'json_object' },
-        temperature: 0.9,
-        max_tokens: 600,
-        seed: Math.floor(Math.random() * 1_000_000)
-    })
+export async function riddles(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    try {
+        const completion = await groq.chat.completions.create({
+            model: 'llama-3.1-8b-instant',
+            messages: [{ role: 'user', content: PROMPT }],
+            response_format: { type: 'json_object' },
+            temperature: 0.9,
+            max_tokens: 600,
+            seed: Math.floor(Math.random() * 1_000_000)
+        })
 
-    const body = completion.choices[0].message.content ?? '{}'
-    return {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body,
+        const body = completion.choices[0].message.content ?? '{}'
+        return {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+            body,
+        }
+    } catch (err) {
+        context.error('riddles function error:', err)
+        const message = err instanceof Error ? err.message : String(err)
+        return { status: 500, body: JSON.stringify({ error: message }) }
     }
 }
 
