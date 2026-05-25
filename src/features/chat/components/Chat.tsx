@@ -6,10 +6,11 @@ import { NewsPanel } from './NewsPanel'
 import { MessageList } from './MessageList'
 import { QuickChips } from './QuickChips'
 import { ChatInput } from './ChatInput'
+import { RiddleGame } from '@/features/riddle/components/RiddleGame'
 
 export function Chat() {
     const { messages, isLoading, usedChips, send, handleChip } = useChat()
-    const { news, isOpen, toggle } = useNews()
+    const { news, isOpen, toggle, refetch, isRefetching, isExhausted } = useNews()
 
     return (
         <motion.div
@@ -20,10 +21,16 @@ export function Chat() {
             transition={{ duration: 0.3, ease: 'easeOut' }}
         >
             <ChatHeader isNewsOpen={isOpen} onToggleNews={toggle} />
-            <NewsPanel news={news} isOpen={isOpen} />
+            <NewsPanel 
+                news={news} 
+                isOpen={isOpen} 
+                onRefresh={refetch} 
+                isRefetching={isRefetching}
+                isExhausted={isExhausted} />
             <MessageList messages={messages} />
             <QuickChips usedChips={usedChips} onChip={handleChip} />
             <ChatInput onSend={send} disabled={isLoading} />
+            <RiddleGame />
         </motion.div>
     )
 }

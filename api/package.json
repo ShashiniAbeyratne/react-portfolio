@@ -13,8 +13,8 @@
   "type": "commonjs",
   "dependencies": {
     "@azure/functions": "^4.14.0",
-    "groq-sdk": "^1.1.2"
-    
+    "groq-sdk": "^1.1.2",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0"

@@ -7,14 +7,8 @@ export interface Message {
     timestamp: number
 }
 
-export interface NewsItem {
-    tag: string
-    headline: string
-    source: string
-    timeAgo: string
-}
-
 export interface ChipOption {
     label: string
     key: string
 }
+
