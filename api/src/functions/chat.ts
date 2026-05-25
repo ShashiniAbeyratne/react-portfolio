@@ -30,8 +30,7 @@ export async function chat(req: HttpRequest, context: InvocationContext): Promis
         }
     } catch (err) {
         context.error('chat function error:', err)
-        const message = err instanceof Error ? err.message : String(err)
-        return { status: 500, body: JSON.stringify({ error: message }) }
+        return { status: 500, body: JSON.stringify({ error: 'Something went wrong' }) }
     }
 }
 

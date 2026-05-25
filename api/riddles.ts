@@ -1,4 +1,4 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import Groq from 'groq-sdk'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
@@ -22,7 +22,7 @@ Rules:
 - answerIndex must be the index (0-3) of the correct option in the options array
 - Do not include explanations, only the JSON`
 
-export async function riddles(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export default async function handler(_req: VercelRequest, res: VercelResponse) {
     try {
         const completion = await groq.chat.completions.create({
             model: 'llama-3.1-8b-instant',
@@ -34,19 +34,10 @@ export async function riddles(_req: HttpRequest, context: InvocationContext): Pr
         })
 
         const body = completion.choices[0].message.content ?? '{}'
-        return {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body,
-        }
+        res.setHeader('Content-Type', 'application/json')
+        res.send(body)
     } catch (err) {
-        context.error('riddles function error:', err)
-        return { status: 500, body: JSON.stringify({ error: 'Something went wrong' }) }
+        console.error('riddles error:', err)
+        res.status(500).json({ error: 'Something went wrong' })
     }
 }
-
-app.http('riddles', {
-    methods: ['GET'],
-    authLevel: 'anonymous',
-    handler: riddles,
-})

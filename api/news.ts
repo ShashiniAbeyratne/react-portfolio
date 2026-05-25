@@ -1,4 +1,4 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import Parser from 'rss-parser'
 
 interface NewsItem {
@@ -6,6 +6,7 @@ interface NewsItem {
     headline: string
     source: string
     timeAgo: string
+    url: string
 }
 
 const parser = new Parser()
@@ -17,7 +18,7 @@ const FEEDS = [
 ]
 
 const MAX_ITEMS = 500
-const CACHE_TTL = 30 * 60 * 1000  // 30 minutes
+const CACHE_TTL = 30 * 60 * 1000
 
 function timeAgo(dateStr: string | undefined): string {
     if (!dateStr) return ''
@@ -41,14 +42,10 @@ async function fetchFeed(feed: typeof FEEDS[number]): Promise<NewsItem[]> {
     }))
 }
 
-export async function news(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export default async function handler(_req: VercelRequest, res: VercelResponse) {
     try {
         if (cache && Date.now() < cache.expiresAt) {
-            return {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ items: cache.items }),
-            }
+            return res.json({ items: cache.items })
         }
 
         const results = await Promise.allSettled(FEEDS.map(fetchFeed))
@@ -58,20 +55,9 @@ export async function news(_req: HttpRequest, context: InvocationContext): Promi
             .slice(0, MAX_ITEMS)
 
         cache = { items, expiresAt: Date.now() + CACHE_TTL }
-
-        return {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items }),
-        }
+        res.json({ items })
     } catch (err) {
-        context.error('news function error:', err)
-        return { status: 500, body: JSON.stringify({ error: 'Something went wrong' }) }
+        console.error('news error:', err)
+        res.status(500).json({ error: 'Something went wrong' })
     }
 }
-
-app.http('news', {
-    methods: ['GET'],
-    authLevel: 'anonymous',
-    handler: news,
-})
