@@ -118,10 +118,3 @@ npm run dev
 └── .github/workflows/    # Legacy Azure SWA workflows (unused, kept for history)
 ```
 
----
-
-## About me
-
-Senior Software Engineer with 9 years across Sri Lanka and Australia. Currently at 6clicks (Gartner-recognised GRC SaaS) and actively building toward AI engineering — particularly interested in LLMs, RAG systems, and agentic AI in compliance-heavy domains.
-
-[shashiniabeyratne.com](https://shashiniabeyratne.com) · [LinkedIn](https://linkedin.com/in/shashiniabeyratne-b87953147) · [GitHub](https://github.com/ShashiniAbeyratne)

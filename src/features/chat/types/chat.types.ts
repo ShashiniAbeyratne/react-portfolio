@@ -10,5 +10,6 @@ export interface Message {
 export interface ChipOption {
     label: string
     key: string
+    href?: string
 }
 

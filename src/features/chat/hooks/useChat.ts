@@ -22,7 +22,6 @@ export function useChat() {
     const [messages, setMessages] = useState<Message[]>([
         createMessage('ai', INITIAL_MESSAGE)
     ])
-    const [usedChips, setUsedChips] = useState<Set<string>>(new Set())
 
     const mutation = useMutation({
         mutationFn: sendToApi,
@@ -40,10 +39,9 @@ export function useChat() {
         mutation.mutate(text)
     }
 
-    const handleChip = (key: string, label: string) => {
-        setUsedChips(prev => new Set(prev).add(key))
+    const handleChip = (_key: string, label: string) => {
         send(label)
     }
 
-    return { messages, isLoading: mutation.isPending, usedChips, send, handleChip }
+    return { messages, isLoading: mutation.isPending, send, handleChip }
 }

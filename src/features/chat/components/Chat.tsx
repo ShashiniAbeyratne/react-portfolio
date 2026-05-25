@@ -9,7 +9,7 @@ import { ChatInput } from './ChatInput'
 import { RiddleGame } from '@/features/riddle/components/RiddleGame'
 
 export function Chat() {
-    const { messages, isLoading, usedChips, send, handleChip } = useChat()
+    const { messages, isLoading, send, handleChip } = useChat()
     const { news, isOpen, toggle, refetch, isRefetching, isExhausted } = useNews()
 
     return (
@@ -28,7 +28,7 @@ export function Chat() {
                 isRefetching={isRefetching}
                 isExhausted={isExhausted} />
             <MessageList messages={messages} />
-            <QuickChips usedChips={usedChips} onChip={handleChip} />
+            <QuickChips onChip={handleChip} />
             <ChatInput onSend={send} disabled={isLoading} />
             <RiddleGame />
         </motion.div>

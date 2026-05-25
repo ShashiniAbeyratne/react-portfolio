@@ -5,7 +5,7 @@ export const CHIPS: ChipOption[] = [
     { label: 'Projects',     key: 'projects'   },
     // { label: 'AI Showcase',  key: 'ai'         },
     { label: 'Experience',   key: 'experience' },
-    { label: 'GitHub ↗',    key: 'github'     },
+    { label: 'GitHub ↗',    key: 'github',    href: 'https://github.com/ShashiniAbeyratne' },
     { label: 'Hire Me?',     key: 'hire'       },
 ]
 
