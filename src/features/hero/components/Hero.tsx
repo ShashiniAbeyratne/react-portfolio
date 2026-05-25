@@ -61,14 +61,14 @@ export function Hero({onEnterChat}: {onEnterChat: () => void}) {
                     className="hero-tagline"
                     variants={itemVariants}
                 >
-                    SE &rarr; AI Engineer in progress
+                    Senior Software Engineer
                 </motion.p>
 
                 <motion.p
                     className="hero-bio"
                     variants={itemVariants}
                 >
-                    9 years across financial services & compliance. C# · Angular · .NET — and actively building toward agentic AI engineering.
+                    9 years building full-stack enterprise software that ships in regulated, high-stakes environments. Grounded in C# · .NET · Angular — now adapting to AI-assisted development and actively building toward AI engineering.
                 </motion.p>
 
                 <motion.div

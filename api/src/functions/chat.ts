@@ -13,7 +13,7 @@ export async function chat(req: HttpRequest, context: InvocationContext): Promis
     }
 
     const completion = await groq.chat.completions.create({
-        model: 'llama-3.1-8b-instant',
+        model: 'llama-3.3-70b-versatile',
         messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'user', content: message }
