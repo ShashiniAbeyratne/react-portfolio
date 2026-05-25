@@ -36,3 +36,6 @@ templates/
 # Local settings for Azure Functions, not committed
 api/local.settings.json
 
+# API compiled output — built fresh during Azure SWA deployment
+api/dist/
+
