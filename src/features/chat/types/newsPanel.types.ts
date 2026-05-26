@@ -1,5 +1,3 @@
-
-
 export interface NewsItem {
     tag: string
     headline: string
