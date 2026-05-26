@@ -1,6 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
 import Groq from 'groq-sdk'
-
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 const PROMPT = `Generate exactly 3 riddles about AI, machine learning, or software engineering concepts.

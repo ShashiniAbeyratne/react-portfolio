@@ -73,6 +73,9 @@ Vercel marks API keys as "Sensitive" on the dashboard, which prevents them from 
 **Mobile responsive display heading**
 The hero name uses `clamp()` for fluid typography. The initial minimum (`3.2rem`) was too large for narrow screens — the heading overflowed the container and got clipped by `overflow-hidden`. Fixed by lowering the minimum to `2rem` so the `vw`-based value takes over on small viewports.
 
+**Rate limiting**
+Server-side in-memory rate limiting (a `Map`-based sliding window) was explored but doesn't work reliably with serverless — each function invocation can be a fresh process with no shared state. The practical solution for a low-traffic portfolio: rely on Groq's own API rate limits, which apply at the key level server-side. The client handles 429 responses from Groq gracefully with user-friendly messages in both the chat and riddle panel. A proper persistent solution (e.g. Upstash Redis with `@upstash/ratelimit`) would be the right call if traffic scaled.
+
 **TypeScript strict mode across two runtimes**
 The frontend (Vite/browser) and the API functions (Node.js/Vercel) have separate `tsconfig.json` files. Keeping `strict: true` in both without letting Node types leak into the browser bundle required careful `types` and `include` scoping.
 

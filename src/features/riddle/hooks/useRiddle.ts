@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 const fetchRiddles = async (): Promise<Riddle[]> => {
     const res = await fetch('/api/riddles')
+    if (res.status === 429) throw new Error('RATE_LIMITED')
     if (!res.ok) throw new Error('Failed to fetch riddles')
     const data = await res.json()
     return data.riddles
@@ -17,6 +18,7 @@ export function useRiddle() {
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
     const [phase, setPhase] = useState<RiddlePhase>(RiddlePhase.Idle)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const { mutate: doFetch, isPending: isLoading } = useMutation({
         mutationFn: fetchRiddles,
@@ -25,8 +27,13 @@ export function useRiddle() {
             setRiddlesList(data)
             setPhase(RiddlePhase.Playing)
         },
-        onError: (error) => {
-            console.error('Error fetching riddles:', error)
+        onError: (error: Error) => {
+            setErrorMessage(
+                error.message === 'RATE_LIMITED'
+                    ? "You've played a lot recently — wait a moment before trying again."
+                    : 'Failed to load riddles. Please try again.'
+            )
+            setPhase(RiddlePhase.Error)
         }
     })
 
@@ -69,5 +76,5 @@ export function useRiddle() {
         doFetch()
     }
 
-    return { riddles: riddlesList, isOpen, isLoading, score, phase, currentIndex, selectedAnswer, toggle, setAnswer, next, restart }
+    return { riddles: riddlesList, isOpen, isLoading, score, phase, errorMessage, currentIndex, selectedAnswer, toggle, setAnswer, next, restart }
 }

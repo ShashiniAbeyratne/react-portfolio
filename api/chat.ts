@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import Groq from 'groq-sdk'
 import { SYSTEM_PROMPT } from './_knowledge'
-
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

@@ -1,7 +1,6 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
 import Groq from 'groq-sdk'
 import { SYSTEM_PROMPT } from '../knowledge'
-
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 export async function chat(req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {

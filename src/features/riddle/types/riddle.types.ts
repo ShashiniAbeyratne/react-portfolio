@@ -9,6 +9,7 @@ export enum RiddlePhase {
     Loading = 'loading',
     Playing = 'playing',
     Complete = 'complete',
+    Error = 'error',
 }
 
 export interface RiddleState {

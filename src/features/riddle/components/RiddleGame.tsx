@@ -12,7 +12,7 @@ const scoreMessage = (score: number, total: number) => {
 
 export function RiddleGame() {
     const {
-        riddles, isOpen, phase,
+        riddles, isOpen, phase, errorMessage,
         currentIndex, selectedAnswer, score,
         toggle, setAnswer, next, restart
     } = useRiddle()
@@ -58,6 +58,15 @@ export function RiddleGame() {
                                     onAnswer={setAnswer}
                                     onNext={next}
                                 />
+                            )}
+
+                            {phase === RiddlePhase.Error && (
+                                <div className="riddle-complete">
+                                    <p className="riddle-complete-message">{errorMessage}</p>
+                                    <button className="riddle-play-again" onClick={restart}>
+                                        Try Again ↺
+                                    </button>
+                                </div>
                             )}
 
                             {phase === RiddlePhase.Complete && (

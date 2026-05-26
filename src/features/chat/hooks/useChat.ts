@@ -10,6 +10,7 @@ const sendToApi = async (text: string): Promise<string> => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })
     })
+    if (res.status === 429) throw new Error('RATE_LIMITED')
     if (!res.ok) throw new Error('Failed to get response')
     const data = await res.json()
     return data.reply
@@ -29,8 +30,11 @@ export function useChat() {
         onSuccess: (reply) => {
             setMessages(prev => [...prev, createMessage(MessageRole.Ai, reply)])
         },
-        onError: () => {
-            setMessages(prev => [...prev, createMessage(MessageRole.Ai, 'Something went wrong. Please try again.')])
+        onError: (error: Error) => {
+            const msg = error.message === 'RATE_LIMITED'
+                ? "You're sending messages too quickly — give it a moment and try again."
+                : 'Something went wrong. Please try again.'
+            setMessages(prev => [...prev, createMessage(MessageRole.Ai, msg)])
         }
     })
 
