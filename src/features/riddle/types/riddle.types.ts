@@ -4,7 +4,12 @@ export interface Riddle {
     answerIndex: number
 }
 
-export type RiddlePhase = 'idle' | 'loading' | 'playing' | 'complete'
+export enum RiddlePhase {
+    Idle = 'idle',
+    Loading = 'loading',
+    Playing = 'playing',
+    Complete = 'complete',
+}
 
 export interface RiddleState {
     riddles: Riddle[]

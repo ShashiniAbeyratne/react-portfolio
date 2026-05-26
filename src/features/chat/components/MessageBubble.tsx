@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
+import { MessageRole } from '../types/chat.types'
 import type { Message } from '../types/chat.types'
 
 export function MessageBubble({ message }: { message: Message }) {
-    const isAi = message.role === 'ai'
+    const isAi = message.role === MessageRole.Ai
     return (
         <motion.div
             className={isAi ? 'msg-bubble-ai' : 'msg-bubble-user'}

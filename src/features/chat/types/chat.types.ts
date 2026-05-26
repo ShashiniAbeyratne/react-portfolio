@@ -1,4 +1,7 @@
-export type MessageRole = 'user' | 'ai'
+export enum MessageRole {
+    User = 'user',
+    Ai = 'ai',
+}
 
 export interface Message {
     id: string

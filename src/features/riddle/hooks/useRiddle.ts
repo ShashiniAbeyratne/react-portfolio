@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import type { Riddle, RiddlePhase } from '../types/riddle.types'
+import { RiddlePhase } from '../types/riddle.types'
+import type { Riddle } from '../types/riddle.types'
 import { useState } from 'react'
 
 const fetchRiddles = async (): Promise<Riddle[]> => {
@@ -15,14 +16,14 @@ export function useRiddle() {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
-    const [phase, setPhase] = useState<RiddlePhase>('idle')
+    const [phase, setPhase] = useState<RiddlePhase>(RiddlePhase.Idle)
 
     const { mutate: doFetch, isPending: isLoading } = useMutation({
         mutationFn: fetchRiddles,
         onSuccess: (data) => {
             if (!data || !Array.isArray(data)) return
             setRiddlesList(data)
-            setPhase('playing')
+            setPhase(RiddlePhase.Playing)
         },
         onError: (error) => {
             console.error('Error fetching riddles:', error)
@@ -35,7 +36,7 @@ export function useRiddle() {
                 setCurrentIndex(0)
                 setScore(0)
                 setSelectedAnswer(null)
-                setPhase('loading')
+                setPhase(RiddlePhase.Loading)
                 doFetch()
             }
 
@@ -48,12 +49,12 @@ export function useRiddle() {
             setCurrentIndex(prev => prev + 1)
             setSelectedAnswer(null)
         } else {
-            setPhase('complete')
+            setPhase(RiddlePhase.Complete)
         }
     }
 
     const setAnswer = (index: number) => {
-        if (phase !== 'playing' || selectedAnswer !== null) return
+        if (phase !== RiddlePhase.Playing || selectedAnswer !== null) return
         setSelectedAnswer(index)
         if (index === riddlesList[currentIndex].answerIndex) {
             setScore(prev => prev + 1)
@@ -64,7 +65,7 @@ export function useRiddle() {
         setCurrentIndex(0)
         setScore(0)
         setSelectedAnswer(null)
-        setPhase('loading')
+        setPhase(RiddlePhase.Loading)
         doFetch()
     }
 

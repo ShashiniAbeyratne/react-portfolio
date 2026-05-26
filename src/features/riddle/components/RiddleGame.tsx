@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Brain } from '@phosphor-icons/react'
 import { useRiddle } from '../hooks/useRiddle'
 import { RiddleCard } from './RiddleCard'
+import { RiddlePhase } from '../types/riddle.types'
 
 const scoreMessage = (score: number, total: number) => {
     if (score === total) return `Perfect score! You really know your AI. 🧠`
@@ -20,7 +21,7 @@ export function RiddleGame() {
         <>
             <button className="riddle-tab" onClick={toggle} aria-label="Open AI Riddle game">
                 <Brain size={14} weight="bold" />
-                <span className="riddle-tab-label">Riddle Me</span>
+                <span className="riddle-tab-label">Tech Riddles</span>
             </button>
 
             <AnimatePresence>
@@ -35,20 +36,20 @@ export function RiddleGame() {
                         <div className="riddle-panel-header">
                             <span className="riddle-panel-title">
                                 <Brain size={14} weight="bold" />
-                                Riddle Me
+                                Tech Riddles
                             </span>
                             <button className="riddle-panel-close" onClick={toggle} aria-label="Close">✕</button>
                         </div>
 
                         <div className="riddle-panel-body">
-                            {phase === 'loading' && (
+                            {phase === RiddlePhase.Loading && (
                                 <div className="riddle-loading">
                                     <p className="riddle-loading-text">Generating your riddles...</p>
                                     <p className="riddle-loading-sub">Powered by Llama 3.1 ✦</p>
                                 </div>
                             )}
 
-                            {phase === 'playing' && riddles[currentIndex] && (
+                            {phase === RiddlePhase.Playing && riddles[currentIndex] && (
                                 <RiddleCard
                                     riddle={riddles[currentIndex]}
                                     currentIndex={currentIndex}
@@ -59,7 +60,7 @@ export function RiddleGame() {
                                 />
                             )}
 
-                            {phase === 'complete' && (
+                            {phase === RiddlePhase.Complete && (
                                 <div className="riddle-complete">
                                     <p className="riddle-complete-score">{score}/{riddles.length}</p>
                                     <p className="riddle-complete-message">
