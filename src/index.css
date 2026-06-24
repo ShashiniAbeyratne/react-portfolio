@@ -536,7 +536,7 @@
 .riddle-panel-close {
   background: transparent;
   border: none;
-  color: var(--portfolio-muted);
+  color: var(--portfolio-amber);
   cursor: pointer;
   font-size: 0.85rem;
   line-height: 1;
