@@ -1,5 +1,5 @@
 import Groq from 'groq-sdk'
-import type { Riddle } from '../types/riddles.types'
+import type { Riddle } from '../src/types/riddles.types'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 

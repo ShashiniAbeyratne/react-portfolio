@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { fetchRiddles } from './src/lib/riddles'
+import { fetchRiddles } from './_lib/riddles'
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
     try {

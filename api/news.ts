@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { fetchNews } from './src/lib/news'
+import { fetchNews } from './_lib/news'
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
     try {

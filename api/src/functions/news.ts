@@ -1,5 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
-import { fetchNews } from '../lib/news'
+import { fetchNews } from '../../_lib/news'
 
 export async function news(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     try {

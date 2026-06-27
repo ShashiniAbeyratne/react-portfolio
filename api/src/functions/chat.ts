@@ -1,5 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
-import { fetchChatReply } from '../lib/chat'
+import { fetchChatReply } from '../../_lib/chat'
 
 export async function chat(req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     try {

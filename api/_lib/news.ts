@@ -1,5 +1,5 @@
 import Parser from 'rss-parser'
-import type { NewsItem } from '../types/news.types'
+import type { NewsItem } from '../src/types/news.types'
 
 const parser = new Parser()
 

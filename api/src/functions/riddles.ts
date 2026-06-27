@@ -1,5 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
-import { fetchRiddles } from '../lib/riddles'
+import { fetchRiddles } from '../../_lib/riddles'
 
 export async function riddles(_req: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     try {
