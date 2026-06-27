@@ -45,7 +45,7 @@ export function RiddleGame() {
                             {phase === RiddlePhase.Loading && (
                                 <div className="riddle-loading">
                                     <p className="riddle-loading-text">Generating your riddles...</p>
-                                    <p className="riddle-loading-sub">Powered by GPT OSS 20B ✦</p>
+                                    <p className="riddle-loading-sub">Powered by Llama 3.3 70B ✦</p>
                                 </div>
                             )}
 

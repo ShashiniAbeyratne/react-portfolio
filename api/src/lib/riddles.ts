@@ -1,5 +1,5 @@
 import Groq from 'groq-sdk'
-import type { Riddle, ReasoningMessage } from '../types/riddles.types'
+import type { Riddle } from '../types/riddles.types'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
@@ -24,17 +24,12 @@ Rules:
 
 export async function fetchRiddles(): Promise<{ riddles: Riddle[] }> {
     const completion = await groq.chat.completions.create({
-        model: 'openai/gpt-oss-20b',
+        model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: PROMPT }],
+        response_format: { type: 'json_object' },
         temperature: 0.9,
-        max_tokens: 4000,
+        max_tokens: 600,
         seed: Math.floor(Math.random() * 1_000_000)
     })
-    const choice = completion.choices[0]
-    // Reasoning models put chain-of-thought in .reasoning; final answer goes in .content
-    const text = (choice.message as ReasoningMessage).content
-        || (choice.message as ReasoningMessage).reasoning
-        || ''
-    const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/) ?? text.match(/(\{[\s\S]*\})/)
-    return JSON.parse(match ? match[1] ?? match[0] : '{}') as { riddles: Riddle[] }
+    return JSON.parse(completion.choices[0].message.content ?? '{}') as { riddles: Riddle[] }
 }
