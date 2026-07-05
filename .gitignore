@@ -45,3 +45,6 @@ api/dist/
 
 .vercel
 .env*
+
+# Local dev scripts
+dev.ps1

@@ -24,11 +24,12 @@ Rules:
 
 export async function fetchRiddles(): Promise<{ riddles: Riddle[] }> {
     const completion = await groq.chat.completions.create({
-        model: 'llama-3.3-70b-versatile',
+        model: 'qwen/qwen3-32b',
         messages: [{ role: 'user', content: PROMPT }],
         response_format: { type: 'json_object' },
+        reasoning_format: 'hidden',
         temperature: 0.9,
-        max_tokens: 600,
+        max_tokens: 1200,
         seed: Math.floor(Math.random() * 1_000_000)
     })
     return JSON.parse(completion.choices[0].message.content ?? '{}') as { riddles: Riddle[] }

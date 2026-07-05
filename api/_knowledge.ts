@@ -49,7 +49,7 @@ When asked about projects, lead with these:
 
 2. This Portfolio (2025) — Shashini designed and built this AI-first portfolio herself.
    React + TypeScript + Vite + TailwindCSS + Framer Motion + shadcn/ui, deployed on
-   Vercel. AI chat powered by Vercel Functions + Groq (Llama 3.3 70B).
+   Vercel. AI chat powered by Vercel Functions + Groq (Qwen 3 32B).
    Includes an LLM-generated riddle game and a live tech news panel sourced from RSS feeds.
 
 Earlier projects (Medipulse, Sithara Dashboard, etc.) can be mentioned for additional
@@ -95,8 +95,8 @@ Angular, TypeScript, NgRx, SASS, LESS, Azure.
 The Investment Engine Pty Ltd — Fullstack Developer + Intern (Jul 2019 – Mar 2020, Hawthorn)
 Project: Medipulse — a healthcare web application.
 Frontend: ReactJS, TypeScript, SCSS, Webpack, Redux, Bootstrap.
-Backend: .NET DDD microservices with ASP.NET, EF Core, C#, Docker, Azure,
-Kubernetes, .NET Core 2.2, MSSQL.
+Backend: .NET DDD microservices with ASP.NET, EF Core, C#, Azure,
+.NET Core 2.2, MSSQL.
 
 Advisor Notebook — Freelance Software Developer (Feb 2018 – Jun 2018)
 Project: Advisor Notebook web application.
@@ -126,7 +126,7 @@ Strong: SQL (MySQL, MSSQL, MongoDB)
 Strong: PHP (Laravel, CodeIgniter)
 Proficient: ReactJS, Redux, JavaScript, jQuery, HTML, CSS, Bootstrap
 Proficient: Python, Java
-Familiar: Docker, Azure, Kubernetes, Azure DevOps, SCIM 2.0, SSO (Azure AD, Okta)
+Familiar: Azure, Azure DevOps, SCIM 2.0, SSO (Azure AD, Okta)
 Testing: NSubstitute, unit testing, end-to-end testing
 Tools: Git, GitHub, Azure DevOps, AI-assisted development tooling
 
@@ -134,17 +134,16 @@ Currently learning and building toward: LLM internals, RAG systems, agentic AI
 engineering, Azure AI services. Particularly interested in AI applied to compliance-heavy
 and regulated domains.
 
-Certifications: No formal AI/ML certifications yet — actively working toward them as part
-of her AI engineering transition.
+Certifications: No formal AI certifications yet — actively learning through building.
 
 --- THIS PORTFOLIO ---
 The portfolio the visitor is currently using was designed and built by Shashini herself.
 It is a demonstration of her AI engineering skills in practice, not just in claim:
 - Built with React, TypeScript, Vite, TailwindCSS, Framer Motion, and shadcn/ui
 - Deployed on Vercel
-- AI chat powered by Vercel Functions calling Groq's API (Llama 3.3 70B) with a
+- AI chat powered by Vercel Functions calling Groq's API (Qwen 3 32B) with a
   context-stuffed system prompt — no vector database needed at this knowledge base size
-- A "Dev Riddles" mini-game where questions are LLM-generated on demand (Llama 3.1 8B
+- A "Tech Riddles" mini-game where questions are LLM-generated on demand (Qwen 3 32B
   via Groq) with randomised seeds to ensure variety
 - A live tech news panel fetching from real RSS feeds (TechCrunch, The Verge, Ars Technica)
   via a Vercel Function with server-side caching
@@ -171,9 +170,9 @@ Shashini's engineering goals go beyond delivery. She wants to:
 - Develop deep understanding of the "behind the scenes" logic in the systems she builds:
   LLM internals, how inference actually works, RAG architecture trade-offs, agentic
   patterns — not surface-level prompt engineering.
-- Bridge her strong enterprise engineering background with genuine AI engineering depth,
-  particularly in domains where compliance, governance, and reliability constraints make
-  AI deployment genuinely hard.
+- Bridge her strong enterprise engineering background with genuine depth in building AI-powered
+  software — particularly in domains where compliance, governance, and reliability constraints
+  make AI integration genuinely hard.
 - Keep being the kind of engineer who can ramp into anything — new stack, new domain,
   new problem space — and deliver with quality.
 
@@ -185,18 +184,24 @@ across product, design, and engineering — comfortable in ambiguity, good at tr
 between technical and non-technical stakeholders.
 
 --- WHAT SHE'S LOOKING FOR ---
-Shashini is actively targeting a move into AI Engineering or AI-forward Senior Software
-Engineering. Her regulated-industry background (GRC, fintech, compliance) is a genuine
-differentiator for AI roles in these domains.
+Shashini is targeting Senior Software Engineering roles at companies building real products
+with AI — integrating LLMs, building AI-powered features, and shipping products where AI is
+a genuine part of the architecture. She is NOT a data scientist or ML researcher and is not
+targeting roles that focus on training or fine-tuning models. Her strength is engineering:
+building reliable, well-architected software that uses AI as a capability.
+
+Her regulated-industry background (GRC, fintech, compliance) is a genuine differentiator for
+AI-forward companies in these domains.
 
 She is interested in:
-- Teams building real products with LLMs, RAG, and agentic AI
-- Fintech, compliance tech, GRC, or regulated industries
-- Roles where deep full-stack engineering experience and growing AI skills are valued together
-- Senior Software Engineer roles with a strong AI/ML component, or AI Engineer roles
+- Senior Software Engineer roles at companies building AI-powered products
+- Teams integrating LLMs, RAG, and agentic AI into real software (not research roles)
+- Fintech, compliance tech, GRC, or other regulated industries
+- Roles where full-stack engineering depth and growing AI skills are valued together
 - Environments where she can grow toward technical leadership over time
 
 She is NOT looking for:
+- ML engineering, data science, or model training roles
 - Pure frontend roles with no backend or systems depth
 - Non-engineering management (she wants to stay close to the code)
 - Roles that treat AI as a buzzword with no real technical depth

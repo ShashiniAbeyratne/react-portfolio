@@ -29,7 +29,7 @@ The chat screen also includes:
 | Components | shadcn/ui, Radix UI |
 | State | Zustand |
 | Data fetching | TanStack Query |
-| AI | Groq API — Llama 3.3 70B (chat), Llama 3.1 8B (riddles) |
+| AI | Groq API — Qwen 3 32B (chat + riddles) |
 | API | Vercel Serverless Functions |
 | Hosting | Vercel |
 | DNS | Cloudflare |
@@ -41,9 +41,9 @@ The chat screen also includes:
 The AI chat uses a context-stuffed system prompt approach — my professional background, experience, and personality are embedded directly into the system prompt sent to the LLM. No vector database or RAG pipeline needed at this knowledge base size. Simple, fast, and cost-effective on the Vercel hobby plan.
 
 ```
-Browser → Vercel Serverless Function → Groq API (Llama 3.3 70B)
+Browser → Vercel Serverless Function → Groq API (Qwen 3 32B, chat)
                                      → RSS feeds (news panel)
-                                     → Groq API (Llama 3.1 8B, riddles)
+                                     → Groq API (Qwen 3 32B, riddles)
 ```
 
 API functions live in `/api` and are picked up automatically by Vercel's file-based routing.
@@ -87,19 +87,19 @@ The frontend (Vite/browser) and the API functions (Node.js/Vercel) have separate
 # Install dependencies
 npm install
 
-# Set your Groq API key (required for AI features — get one free at console.groq.com)
-$env:GROQ_API_KEY="your_key_here"   # PowerShell
-# or
-export GROQ_API_KEY="your_key_here" # bash/zsh
+# Add your Groq API key to .env.local (get one free at console.groq.com)
+echo "GROQ_API_KEY=your_key_here" > .env.local
 
 # Run with Vercel dev (serves both frontend and API functions)
+.\dev.ps1          # PowerShell — loads .env.local and starts vercel dev
+# or manually:
 vercel dev
 
 # Frontend only (no AI features)
 npm run dev
 ```
 
-> Note: `npm run dev` runs Vite only. The `/api/*` endpoints won't respond unless you use `vercel dev`.
+> Note: `npm run dev` runs Vite only. The `/api/*` endpoints won't respond unless you use `vercel dev`. Sensitive env vars can't be added to Vercel's Development environment by design — `.env.local` + `dev.ps1` is the local dev workaround.
 
 ---
 
