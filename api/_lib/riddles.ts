@@ -1,5 +1,6 @@
 import Groq from 'groq-sdk'
 import type { Riddle } from './types/riddles.types'
+import { GROQ_MODEL } from './models'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
@@ -24,12 +25,11 @@ Rules:
 
 export async function fetchRiddles(): Promise<{ riddles: Riddle[] }> {
     const completion = await groq.chat.completions.create({
-        model: 'qwen/qwen3-32b',
+        model: GROQ_MODEL as string,
         messages: [{ role: 'user', content: PROMPT }],
         response_format: { type: 'json_object' },
-        reasoning_format: 'hidden',
         temperature: 0.9,
-        max_tokens: 1200,
+        max_tokens: 8000,
         seed: Math.floor(Math.random() * 1_000_000)
     })
     return JSON.parse(completion.choices[0].message.content ?? '{}') as { riddles: Riddle[] }
